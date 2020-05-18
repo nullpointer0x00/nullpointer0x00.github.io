@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?><feed xmlns="http://www.w3.org/2005/Atom" ><generator uri="https://jekyllrb.com/" version="4.0.1">Jekyll</generator><link href="http://localhost:4000/feed.xml" rel="self" type="application/atom+xml" /><link href="http://localhost:4000/" rel="alternate" type="text/html" /><updated>2020-05-17T21:38:58-06:00</updated><id>http://localhost:4000/feed.xml</id><title type="html">Title Not Found</title><subtitle>This blog is a documentation of my adventures in anything programming. Topics will include emacs, java, c#, .net, and software engineering in general.</subtitle><entry><title type="html">Emacs Org Mode and Jekyll Tutorial</title><link href="http://localhost:4000/2020/05/16/org-mode-jekyll.html" rel="alternate" type="text/html" title="Emacs Org Mode and Jekyll Tutorial" /><published>2020-05-16T00:00:00-06:00</published><updated>2020-05-16T00:00:00-06:00</updated><id>http://localhost:4000/2020/05/16/org-mode-jekyll</id><content type="html" xml:base="http://localhost:4000/2020/05/16/org-mode-jekyll.html">&lt;p&gt;
+I have become a huge fan of emacs org-mode in the last few months.  Using it for notes, todos, time tracking, and data science notebooks similar to Juypter Notebooks. So, why not a blog as well?  I looked around and found that Jekyll and org-mode work nicely together.  When researching I found a few tutorials that helped, but were not 100% up to date and some had incorrect information.  So, here are my updated notes that I hope will help.
+&lt;/p&gt;
+
+&lt;p&gt;
+Getting started with &lt;a href=&quot;https://jekyllrb.com/&quot;&gt;Jekyll&lt;/a&gt;: 
+&lt;/p&gt;
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-shell&quot;&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;#&lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;install with ubuntu example&lt;/span&gt;
+sudo apt install ruby
+sudo apt install ruby-dev
+gem install bundler jekyll
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+Install guides for all operating systems:
+&lt;/p&gt;
+&lt;p class=&quot;verse&quot;&gt;
+&lt;a href=&quot;https://jekyllrb.com/docs/installation/macos/&quot;&gt;macOS&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://jekyllrb.com/docs/installation/ubuntu/&quot;&gt;Ubuntu&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://jekyllrb.com/docs/installation/other-linux/&quot;&gt;Other Linux Distros&lt;/a&gt;&lt;br /&gt;
+&lt;a href=&quot;https://jekyllrb.com/docs/installation/windows/&quot;&gt;Windows&lt;/a&gt;&lt;br /&gt;
+&lt;/p&gt;
+
+
+&lt;p&gt;
+A new directory called &lt;b&gt;my-blog&lt;/b&gt; should have been created with this structure:
+&lt;/p&gt;
+&lt;pre class=&quot;example&quot;&gt;
+-- my-blog
+--- 404.html
+--- about.markdown
+--- _config.yml
+--- Gemfile
+--- Gemfile.lock
+--- index.markdown
+--- .jekyll-cache/
+--- _posts/
+--- _site/
+&lt;/pre&gt;
+
+&lt;p&gt;
+_config.yml is the configuration file for the jekyll site.  It includes descriptions on all the settings.
+&lt;/p&gt;
+
+&lt;p&gt;
+Create a directory called org within the base of the project.  This is where all the org files will live.
+&lt;/p&gt;
+
+&lt;p&gt;
+Create new directories for org files.  They should mirror the jekyll structure.
+&amp;#x2013; my-blog
+&amp;#x2014; .. 
+&amp;#x2014; org/
+&amp;#x2014; _posts/
+&lt;/p&gt;
+
+&lt;p&gt;
+Adding configuration to publish org files to html.  Here is a more details configuration tutorial: &lt;a href=&quot;https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html&quot;&gt;Publishing Org-mode files to HTML&lt;/a&gt; 
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-emacs-lisp&quot;&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;require&lt;/span&gt; '&lt;span style=&quot;color: #a45bad;&quot;&gt;ox-publish&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;
+&lt;span style=&quot;color: #4f97d7;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #4f97d7; font-weight: bold;&quot;&gt;setq&lt;/span&gt; org-publish-project-alist
+ '&lt;span style=&quot;color: #bc6ec5;&quot;&gt;(&lt;/span&gt;
+ &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;org-nullpointer0x00&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:base-directory&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;/home/channa/code/nullpointer0x00.github.io/org/&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:base-extension&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;org&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:publishing-directory&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;/home/channa/code/nullpointer0x00.github.io/&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:recursive&lt;/span&gt; t
+
+          &lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;;; &lt;/span&gt;&lt;span style=&quot;color: #2aa1ae; background-color: #292e34;&quot;&gt;This differed from the worg documentation which used obsolete named: org-html-publish-to-html&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:publishing-function&lt;/span&gt; org-html-publish-to-html
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:headline-levels&lt;/span&gt; &lt;span style=&quot;color: #a45bad;&quot;&gt;3&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:html-extension&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;html&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:body-only&lt;/span&gt; t
+    &lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;
+    &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;org-static-nullpointer0x00&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:base-directory&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;/home/channa/code/nullpointer0x00.github.io/org/&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:base-extension&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;css&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;\\&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;|&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;js&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;\\&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;|&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;png&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;\\&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;|&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;jpg&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;\\&lt;/span&gt;&lt;span style=&quot;color: #2d9574; font-weight: bold;&quot;&gt;|&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;gif&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:publishing-directory&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;/home/channa/code/nullpointer0x00.github.io/&quot;&lt;/span&gt;
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:recursive&lt;/span&gt; t
+          &lt;span style=&quot;color: #4f97d7;&quot;&gt;:publishing-function&lt;/span&gt; org-publish-attachment&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;
+
+    &lt;span style=&quot;color: #2d9574;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;nullpointer0x00&quot;&lt;/span&gt; &lt;span style=&quot;color: #4f97d7;&quot;&gt;:components&lt;/span&gt; &lt;span style=&quot;color: #67b11d;&quot;&gt;(&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;org-nullpointer0x00&quot;&lt;/span&gt; &lt;span style=&quot;color: #2d9574;&quot;&gt;&quot;org-static-nullpointer0x00&quot;&lt;/span&gt;&lt;span style=&quot;color: #67b11d;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #2d9574;&quot;&gt;)&lt;/span&gt;
+
+&lt;span style=&quot;color: #bc6ec5;&quot;&gt;)&lt;/span&gt;&lt;span style=&quot;color: #4f97d7;&quot;&gt;)&lt;/span&gt;
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+ctrl-x, ctrl-e with the point after the last paratheses of the statement.  That will execute the statem
+&lt;/p&gt;
+
+&lt;p&gt;
+To execute: meta+x org-publish-project RET nullpointer0x00
+&lt;/p&gt;
+
+&lt;p&gt;
+Once I had it successfully publishing.  I started up the Jekyll server with:
+&lt;/p&gt;
+
+&lt;div class=&quot;org-src-container&quot;&gt;
+&lt;pre class=&quot;src src-shell&quot;&gt;bundle exec jekyll serve
+&lt;/pre&gt;
+&lt;/div&gt;
+
+&lt;p&gt;
+The default url is localhost:4000.  You should see your new page show up as a link on the front page.  However, when you click the link none of the formatting is inherited from Jekyll.
+&lt;/p&gt;
+
+&lt;p&gt;
+To solve this issue.  We must add the Jekyll raw header to the html file that is generated.  This is the Jeykll header format:
+&lt;/p&gt;
+
+&lt;pre class=&quot;example&quot;&gt;
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+&lt;/pre&gt;
+
+&lt;p&gt;
+However, this needs to be surround in BEGIN&lt;sub&gt;EXPORT&lt;/sub&gt;/END&lt;sub&gt;EXPORT&lt;/sub&gt; in the org file.
+&lt;/p&gt;
+
+&lt;pre class=&quot;example&quot;&gt;
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+#+END_EXPORT
+&lt;/pre&gt;</content><author><name></name></author><summary type="html">I have become a huge fan of emacs org-mode in the last few months. Using it for notes, todos, time tracking, and data science notebooks similar to Juypter Notebooks. So, why not a blog as well? I looked around and found that Jekyll and org-mode work nicely together. When researching I found a few tutorials that helped, but were not 100% up to date and some had incorrect information. So, here are my updated notes that I hope will help.</summary></entry></feed>

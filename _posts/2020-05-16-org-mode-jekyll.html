@@ -1,0 +1,143 @@
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+catagories: emacs org-mode jekyll tutorial elisp
+---
+
+<p>
+I have become a huge fan of emacs org-mode in the last few months.  Using it for notes, todos, time tracking, and data science notebooks similar to Juypter Notebooks. So, why not a blog as well?  I looked around and found that Jekyll and org-mode work nicely together.  When researching I found a few tutorials that helped, but were not 100% up to date and some had incorrect information.  So, here are my updated notes that I hope will help.
+</p>
+
+<p>
+Getting started with <a href="https://jekyllrb.com/">Jekyll</a>: 
+</p>
+<div class="org-src-container">
+<pre class="src src-shell"><span style="color: #2aa1ae; background-color: #292e34;">#</span><span style="color: #2aa1ae; background-color: #292e34;">install with ubuntu example</span>
+sudo apt install ruby
+sudo apt install ruby-dev
+gem install bundler jekyll
+</pre>
+</div>
+
+<p>
+Install guides for all operating systems:
+</p>
+<p class="verse">
+<a href="https://jekyllrb.com/docs/installation/macos/">macOS</a><br />
+<a href="https://jekyllrb.com/docs/installation/ubuntu/">Ubuntu</a><br />
+<a href="https://jekyllrb.com/docs/installation/other-linux/">Other Linux Distros</a><br />
+<a href="https://jekyllrb.com/docs/installation/windows/">Windows</a><br />
+</p>
+
+
+<p>
+A new directory called <b>my-blog</b> should have been created with this structure:
+</p>
+<pre class="example">
+-- my-blog
+--- 404.html
+--- about.markdown
+--- _config.yml
+--- Gemfile
+--- Gemfile.lock
+--- index.markdown
+--- .jekyll-cache/
+--- _posts/
+--- _site/
+</pre>
+
+<p>
+_config.yml is the configuration file for the jekyll site.  It includes descriptions on all the settings.
+</p>
+
+<p>
+Create a directory called org within the base of the project.  This is where all the org files will live.
+</p>
+
+<p>
+Create new directories for org files.  They should mirror the jekyll structure.
+&#x2013; my-blog
+&#x2014; .. 
+&#x2014; org/
+&#x2014; _posts/
+</p>
+
+<p>
+Adding configuration to publish org files to html.  Here is a more details configuration tutorial: <a href="https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html">Publishing Org-mode files to HTML</a> 
+</p>
+
+<div class="org-src-container">
+<pre class="src src-emacs-lisp"><span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">require</span> '<span style="color: #a45bad;">ox-publish</span><span style="color: #4f97d7;">)</span>
+<span style="color: #4f97d7;">(</span><span style="color: #4f97d7; font-weight: bold;">setq</span> org-publish-project-alist
+ '<span style="color: #bc6ec5;">(</span>
+ <span style="color: #2d9574;">(</span><span style="color: #2d9574;">"org-nullpointer0x00"</span>
+          <span style="color: #4f97d7;">:base-directory</span> <span style="color: #2d9574;">"/home/channa/code/nullpointer0x00.github.io/org/"</span>
+          <span style="color: #4f97d7;">:base-extension</span> <span style="color: #2d9574;">"org"</span>
+          <span style="color: #4f97d7;">:publishing-directory</span> <span style="color: #2d9574;">"/home/channa/code/nullpointer0x00.github.io/"</span>
+          <span style="color: #4f97d7;">:recursive</span> t
+
+          <span style="color: #2aa1ae; background-color: #292e34;">;; </span><span style="color: #2aa1ae; background-color: #292e34;">This differed from the worg documentation which used obsolete named: org-html-publish-to-html</span>
+          <span style="color: #4f97d7;">:publishing-function</span> org-html-publish-to-html
+          <span style="color: #4f97d7;">:headline-levels</span> <span style="color: #a45bad;">3</span>
+          <span style="color: #4f97d7;">:html-extension</span> <span style="color: #2d9574;">"html"</span>
+          <span style="color: #4f97d7;">:body-only</span> t
+    <span style="color: #2d9574;">)</span>
+    <span style="color: #2d9574;">(</span><span style="color: #2d9574;">"org-static-nullpointer0x00"</span>
+          <span style="color: #4f97d7;">:base-directory</span> <span style="color: #2d9574;">"/home/channa/code/nullpointer0x00.github.io/org/"</span>
+          <span style="color: #4f97d7;">:base-extension</span> <span style="color: #2d9574;">"css</span><span style="color: #2d9574; font-weight: bold;">\\</span><span style="color: #2d9574; font-weight: bold;">|</span><span style="color: #2d9574;">js</span><span style="color: #2d9574; font-weight: bold;">\\</span><span style="color: #2d9574; font-weight: bold;">|</span><span style="color: #2d9574;">png</span><span style="color: #2d9574; font-weight: bold;">\\</span><span style="color: #2d9574; font-weight: bold;">|</span><span style="color: #2d9574;">jpg</span><span style="color: #2d9574; font-weight: bold;">\\</span><span style="color: #2d9574; font-weight: bold;">|</span><span style="color: #2d9574;">gif"</span>
+          <span style="color: #4f97d7;">:publishing-directory</span> <span style="color: #2d9574;">"/home/channa/code/nullpointer0x00.github.io/"</span>
+          <span style="color: #4f97d7;">:recursive</span> t
+          <span style="color: #4f97d7;">:publishing-function</span> org-publish-attachment<span style="color: #2d9574;">)</span>
+
+    <span style="color: #2d9574;">(</span><span style="color: #2d9574;">"nullpointer0x00"</span> <span style="color: #4f97d7;">:components</span> <span style="color: #67b11d;">(</span><span style="color: #2d9574;">"org-nullpointer0x00"</span> <span style="color: #2d9574;">"org-static-nullpointer0x00"</span><span style="color: #67b11d;">)</span><span style="color: #2d9574;">)</span>
+
+<span style="color: #bc6ec5;">)</span><span style="color: #4f97d7;">)</span>
+</pre>
+</div>
+
+<p>
+ctrl-x, ctrl-e with the point after the last paratheses of the statement.  That will execute the statem
+</p>
+
+<p>
+To execute: meta+x org-publish-project RET nullpointer0x00
+</p>
+
+<p>
+Once I had it successfully publishing.  I started up the Jekyll server with:
+</p>
+
+<div class="org-src-container">
+<pre class="src src-shell">bundle exec jekyll serve
+</pre>
+</div>
+
+<p>
+The default url is localhost:4000.  You should see your new page show up as a link on the front page.  However, when you click the link none of the formatting is inherited from Jekyll.
+</p>
+
+<p>
+To solve this issue.  We must add the Jekyll raw header to the html file that is generated.  This is the Jeykll header format:
+</p>
+
+<pre class="example">
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+</pre>
+
+<p>
+However, this needs to be surround in BEGIN<sub>EXPORT</sub>/END<sub>EXPORT</sub> in the org file.
+</p>
+
+<pre class="example">
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+#+END_EXPORT
+</pre>

@@ -1,0 +1,115 @@
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+catagories: emacs org-mode jekyll tutorial elisp
+---
+#+END_EXPORT
+
+I have become a huge fan of emacs org-mode in the last few months.  Using it for notes, todos, time tracking, and data science notebooks similar to Juypter Notebooks. So, why not a blog as well?  I looked around and found that Jekyll and org-mode work nicely together.  When researching I found a few tutorials that helped, but were not 100% up to date and some had incorrect information.  So, here are my updated notes that I hope will help.
+
+Getting started with [[https://jekyllrb.com/][Jekyll]]: 
+#+BEGIN_SRC shell 
+#install with ubuntu example
+sudo apt install ruby
+sudo apt install ruby-dev
+gem install bundler jekyll
+#+END_SRC
+
+Install guides for all operating systems:
+#+BEGIN_VERSE
+[[https://jekyllrb.com/docs/installation/macos/][macOS]]
+[[https://jekyllrb.com/docs/installation/ubuntu/][Ubuntu]]
+[[https://jekyllrb.com/docs/installation/other-linux/][Other Linux Distros]]
+[[https://jekyllrb.com/docs/installation/windows/][Windows]]
+#+END_VERSE
+
+
+A new directory called *my-blog* should have been created with this structure:
+#+BEGIN_SRC
+-- my-blog
+--- 404.html
+--- about.markdown
+--- _config.yml
+--- Gemfile
+--- Gemfile.lock
+--- index.markdown
+--- .jekyll-cache/
+--- _posts/
+--- _site/
+#+END_SRC
+
+_config.yml is the configuration file for the jekyll site.  It includes descriptions on all the settings.
+
+ Create a directory called org within the base of the project.  This is where all the org files will live.
+
+Create new directories for org files.  They should mirror the jekyll structure.
+-- my-blog
+--- .. 
+--- org/
+--- _posts/
+
+Adding configuration to publish org files to html.  Here is a more details configuration tutorial: [[https://orgmode.org/worg/org-tutorials/org-publish-html-tutorial.html][Publishing Org-mode files to HTML]] 
+
+#+BEGIN_SRC emacs-lisp
+(require 'ox-publish)
+(setq org-publish-project-alist
+ '(
+ ("org-nullpointer0x00"
+          :base-directory "/home/channa/code/nullpointer0x00.github.io/org/"
+          :base-extension "org"
+          :publishing-directory "/home/channa/code/nullpointer0x00.github.io/"
+          :recursive t
+
+          ;; This differed from the worg documentation which used obsolete named: org-html-publish-to-html
+          :publishing-function org-html-publish-to-html
+          :headline-levels 3
+          :html-extension "html"
+          :body-only t
+    )
+    ("org-static-nullpointer0x00"
+          :base-directory "/home/channa/code/nullpointer0x00.github.io/org/"
+          :base-extension "css\\|js\\|png\\|jpg\\|gif"
+          :publishing-directory "/home/channa/code/nullpointer0x00.github.io/"
+          :recursive t
+          :publishing-function org-publish-attachment)
+
+    ("nullpointer0x00" :components ("org-nullpointer0x00" "org-static-nullpointer0x00"))
+
+))
+#+END_SRC
+
+ctrl-x, ctrl-e with the point after the last paratheses of the statement.  That will execute the statem
+
+To execute: meta+x org-publish-project RET nullpointer0x00
+
+Once I had it successfully publishing.  I started up the Jekyll server with:
+
+#+BEGIN_SRC shell
+bundle exec jekyll serve
+#+END_SRC
+
+The default url is localhost:4000.  You should see your new page show up as a link on the front page.  However, when you click the link none of the formatting is inherited from Jekyll.
+
+To solve this issue.  We must add the Jekyll raw header to the html file that is generated.  This is the Jeykll header format:
+
+#+BEGIN_SRC
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+#+END_SRC
+
+However, this needs to be surround in BEGIN_EXPORT/END_EXPORT in the org file.
+
+#+BEGIN_SRC
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  Emacs Org Mode and Jekyll Tutorial
+categories: blog emacs jekyll org-mode
+---
+#+END_EXPORT
+#+END_SRC
+
