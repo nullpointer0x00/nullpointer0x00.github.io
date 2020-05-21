@@ -1,0 +1,36 @@
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  TF Commandline Tips
+catagories: tfs tf visualstudio programming
+---
+#+END_EXPORT
+
+I'm a Linux user that *loves* the commandline.  However, my current job is .net development on windows mostly.  We use TFS as our current repository and instead of Git the one I'm used to.  The GUI interface in Visual Studio was just not cutting it for me anymore. So, I started researching the TF windows commandline tool.
+
+Show pending files in repository
+#+BEGIN_SRC shell
+#equivelent to 'git status' of current working directory
+tf status 
+#status of a workspace from absolute path
+tf status c:\someworkspace\ /recursive
+#+END_SRC
+
+#+BEGIN_SRC shell
+tf get
+#+END_SRC
+
+To check file differences us the *tf diff*.  However, you will want to set the /format: to 
+#+BEGIN_SRC shell
+#Show diffs of all files starting at the current working directory
+tf diff /format:unix /recursive .
+#Or show diffs of everything in specific folder
+tf diff /format:unix /recursive c:\SomeProjectFolder
+#Or just a file
+tf diff /format:unix d:\SomeProjectFolder\program.cs
+#+END_SRC
+
+Checking in files...
+#+BEGIN_SRC shell
+
+#+END_SRC

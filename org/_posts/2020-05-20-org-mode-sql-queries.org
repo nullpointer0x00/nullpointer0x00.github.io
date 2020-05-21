@@ -1,0 +1,47 @@
+#+BEGIN_EXPORT html
+---
+layout: post
+title:  Org Mode and SQL Execution
+catagories: tfs vsts visualstudio programming
+---
+#+END_EXPORT
+
+I thought it would be nice to put some of my queries into my org-notes and have the ability to run them.  This is a helpful feature for my work flow.  Not only do we have a record of the query we can also record and refresh the results of the query.
+
+
+#+BEGIN_SRC org
+#+name: query-example
+#+header: :engine mysql
+#+header: :dbhost mydatabase
+#+header: :dbuser myuser
+#+header: :dbpassword mypassword
+#+header: :database mydatabase
+#+BEGIN_SRC sql
+select count(*) from mytable;
+#+END_SRC
+#+END_SRC
+
+You may run into an error when first writing the query. 
+** sql needs to be loaded in the org-bable-load-languages
+#+BEGIN_SRC emacs-lisp
+(org-babel-do-load-languages
+ 'org-babel-load-languages
+ '((sql . t))
+ )
+#+END_SRC
+** path to mysql client needs to be set.
+*** If you see this error:  
+*** On linux you just need to install mysql client. Ubuntu: apt-get install mysql-client
+*** Windows if you see this error while running you will need install a mysql client and add it to your PATH:
+'mysql' is not recognized as an internal or external command,
+operable program or batch file.
+**** Open Explorer and Right Click On *This PC*
+**** Click *Advanced system settings* on the left side of new windows
+**** System Properties window will appear with a *Environment Variables* button at the bottom to click.
+**** Edit the *Path* variable in *System variables* or in *User variables for ..*
+**** Click *New* button and add the full path for you mysql.exe application.  My client was installed with MySqlWorkbench at *d:\Program Files\MySQL\MySQL Workbench 8.0 CE\*
+**** Once added, click *Ok* on all windows to confirm it.
+**** Test by opening a new powershell or something better like [[https://cmder.net/][cmdr]] and type *mysql --version*.  It will display something similar to *mysql  Ver 8.0.20 for Win64 on x86_64 (MySQL Community Server - GPL)*   
+
+
+
